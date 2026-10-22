@@ -119,14 +119,17 @@
     <button onclick="showPage('opportunities')">
         Research Opportunities
     </button>
+<button onclick="showPage('applications')">
+    Student Application
+</button>
 
-    <button onclick="showPage('applications')">
-        Student Application
-    </button>
+<button onclick="showPage('interests')">
+    Submit Research Interests
+</button>
 
-    <button onclick="showPage('faculty')">
-        Faculty Dashboard
-    </button>
+<button onclick="showPage('faculty')">
+    Faculty Dashboard
+</button>
 </nav>
 
 <main>
@@ -164,6 +167,54 @@
         </div>
     </section>
 
+
+<!-- STUDENT RESEARCH INTERESTS -->
+
+<section id="interests" class="page">
+
+    <h2>Submit Research Interests</h2>
+
+    <p>
+        Interested in participating in faculty research?
+        Share your interests, skills, and experience.
+        Faculty may contact you if an opportunity becomes available.
+    </p>
+
+    <div class="card">
+        <h3>Student Interest Form</h3>
+
+        <form id="interestForm">
+
+            <label for="studentName">Full Name</label>
+            <input type="text" id="studentName" required>
+
+            <label for="studentEmail">JMU Email</label>
+            <input type="email" id="studentEmail" required>
+
+            <label for="studentMajor">Major(s)</label>
+            <input type="text" id="studentMajor" required>
+
+            <label for="researchInterests">Research Interests</label>
+            <textarea id="researchInterests" required></textarea>
+
+            <label for="studentSkills">Relevant Skills and Experience</label>
+            <textarea id="studentSkills"></textarea>
+
+            <label for="studentAvailability">Availability</label>
+            <input type="text" id="studentAvailability"
+                   placeholder="Example: 5 hours per week">
+
+            <button type="submit" class="submit">
+                Submit Research Interests
+            </button>
+
+        </form>
+
+        <p id="interestMessage" role="status"></p>
+        <p>Demo only. Do not enter real personal information yet.</p>
+    </div>
+
+</section>
 
     <!-- FACULTY DASHBOARD -->
 
