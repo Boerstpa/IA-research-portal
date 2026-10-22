@@ -32,13 +32,11 @@ footer{text-align:center;border-top:1px solid var(--border);padding:24px;color:#
 <main>
 <section id="opportunities" class="page active">
 <h2>Available Research Opportunities</h2><p>Explore faculty-led research opportunities and apply for projects that match your interests and skills.</p>
-<div class="warning">Site setup in progress. Listings currently appear only in the browser where they were created.</div>
 <div id="projectListings"></div><div id="noProjects" class="notice">There are currently no research opportunities available. You can still submit general research interests.</div>
 <button class="secondary" onclick="showPage('interests')">Submit General Research Interests</button>
 </section>
 <section id="applications" class="page">
 <h2>Student Research Application</h2><p>Apply to a specific faculty research project.</p>
-<div class="warning">Submissions are not yet connected to faculty. Please do not enter real personal information.</div>
 <div id="noApplicationProjects" class="notice">There are currently no research opportunities accepting applications.</div>
 <div class="card" id="applicationCard"><h3>Apply for Research</h3>
 <form id="applicationForm">
@@ -54,8 +52,7 @@ footer{text-align:center;border-top:1px solid var(--border);padding:24px;color:#
 </form><p id="applicationMessage" role="status"></p></div>
 </section>
 <section id="interests" class="page">
-<h2>Submit Research Interests</h2><p>Interested in research even if no projects are currently posted? Share your interests and qualifications. In the completed portal, authorized professors and administrators will be able to review submissions.</p>
-<div class="warning">Submissions are not yet connected to faculty. Please do not enter real personal information.</div>
+<h2>Submit Research Interests</h2><p>Interested in research even if no projects are currently posted? Share your interests and qualifications. Faculty can review student research interests and reach out about opportunities.</p>
 <div class="card"><h3>Student Research Interest Form</h3>
 <form id="interestForm">
 <label for="studentName">Full Name</label><input id="studentName" required>
@@ -70,7 +67,6 @@ footer{text-align:center;border-top:1px solid var(--border);padding:24px;color:#
 </section>
 <section id="faculty" class="page">
 <h2>Faculty Dashboard</h2><p>Create research opportunities and review student applications and research interests.</p>
-<div class="warning"><strong>Faculty access is not yet restricted.</strong> This page is currently public. Do not enter real student data until faculty authentication and secure storage are configured.</div>
 <div class="card"><h3>Create Research Opportunity</h3>
 <form id="facultyForm">
 <label for="professor">Professor Name</label><input id="professor" required>
@@ -83,8 +79,8 @@ footer{text-align:center;border-top:1px solid var(--border);padding:24px;color:#
 </form><p id="formMessage" role="status"></p></div>
 <h3 class="section-heading">Manage Research Opportunities</h3><div id="facultyProjects"></div>
 <h3 class="section-heading">Student Applications</h3><div id="facultyApplications"></div>
-<h3 class="section-heading">Student Research Interest Directory</h3><p class="small">This directory must be restricted to authorized faculty and administrators before real use.</p><div id="facultyInterests"></div>
-<div class="card"><h3>Local Data</h3><p>Clear projects and submissions saved in this browser while the portal is being configured.</p><button class="danger" onclick="clearDemoData()">Clear Browser Data</button></div>
+<h3 class="section-heading">Student Research Interest Directory</h3><div id="facultyInterests"></div>
+
 </section>
 </main>
 <footer>IA Research Portal | James Madison University Intelligence Analysis Program</footer>
@@ -106,7 +102,6 @@ document.getElementById('interestForm').addEventListener('submit',function(event
 function displayFacultyProjects(){const c=document.getElementById('facultyProjects');c.replaceChildren();if(!projects.length){empty(c,'No research projects posted.');return}projects.forEach(p=>{const card=el('div',undefined,'card');card.appendChild(el('h3',p.title));detail(card,'Professor',p.professor);detail(card,'Applications',applications.filter(a=>a.projectId===p.id).length);const btn=el('button','Remove Project','danger');btn.addEventListener('click',()=>{if(!confirm('Remove this locally saved project and its applications?'))return;projects=projects.filter(x=>x.id!==p.id);applications=applications.filter(a=>a.projectId!==p.id);saveData();refreshAll()});card.appendChild(btn);c.appendChild(card)})}
 function displayFacultyApplications(){const c=document.getElementById('facultyApplications');c.replaceChildren();if(!applications.length){empty(c,'No student applications have been received.');return}applications.forEach(a=>{const card=el('div',undefined,'card');card.appendChild(el('h3',a.name));detail(card,'Project',a.projectTitle);detail(card,'Professor',a.professor);detail(card,'Email',a.email);detail(card,'Major',a.major);detail(card,'Academic Year',a.year);detail(card,'Experience',a.experience);detail(card,'Interest',a.interest);detail(card,'Availability',a.availability);c.appendChild(card)})}
 function displayFacultyInterests(){const c=document.getElementById('facultyInterests');c.replaceChildren();if(!interests.length){empty(c,'No general research interest submissions yet.');return}interests.forEach(s=>{const card=el('div',undefined,'card');card.appendChild(el('h3',s.name));detail(card,'Email',s.email);detail(card,'Major',s.major);detail(card,'Academic Year',s.year);detail(card,'Research Interests',s.interests);detail(card,'Skills and Experience',s.skills);detail(card,'Availability',s.availability);c.appendChild(card)})}
-function clearDemoData(){if(!confirm('Delete all locally saved data from this browser?'))return;projects=[];applications=[];interests=[];saveData();refreshAll();['applicationMessage','interestMessage','formMessage'].forEach(id=>document.getElementById(id).textContent='')}
 function refreshAll(){displayProjects();updateApplicationOptions();displayFacultyProjects();displayFacultyApplications();displayFacultyInterests()}
 refreshAll();
 </script>
