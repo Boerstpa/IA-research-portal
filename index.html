@@ -1,374 +1,114 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>IA Research Portal | JMU</title>
-
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f7f7f9;
-        color: #242424;
-    }
-
-    header {
-        background: #450084;
-        color: white;
-        padding: 25px 8%;
-    }
-
-    header h1 {
-        margin: 0 0 8px;
-    }
-
-    header p {
-        margin: 0;
-        color: #e9dff2;
-    }
-
-    nav {
-        background: white;
-        padding: 15px 8%;
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    button {
-        background: #450084;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 12px 20px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    button:hover {
-        background: #330063;
-    }
-
-    main {
-        max-width: 1000px;
-        margin: 40px auto;
-        padding: 0 20px;
-    }
-
-    .page {
-        display: none;
-    }
-
-    .page.active {
-        display: block;
-    }
-
-    .card {
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 25px;
-        margin-top: 20px;
-    }
-
-    .notice {
-        background: #f0ebf7;
-        border-left: 4px solid #450084;
-        padding: 18px;
-        border-radius: 5px;
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
-        margin-top: 18px;
-    }
-
-    input, textarea {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 12px;
-        margin-top: 7px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font: inherit;
-    }
-
-    textarea {
-        min-height: 100px;
-    }
-
-    .submit {
-        margin-top: 20px;
-    }
+:root{--purple:#450084;--gold:#cbb677;--bg:#f7f6f9;--border:#ddd9e4}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 Arial,sans-serif;background:var(--bg);color:#26232c}
+header{background:var(--purple);color:white;padding:34px max(20px,8%);border-bottom:5px solid var(--gold)}
+header h1{margin:0}header p{margin:6px 0 0;color:#eee4f5}
+nav{background:white;padding:14px max(20px,8%);display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+button{border:0;border-radius:6px;padding:11px 17px;background:var(--purple);color:white;cursor:pointer;font:inherit}button:hover{background:#320061}nav button.active{box-shadow:inset 0 -3px var(--gold)}
+button.secondary{background:white;color:var(--purple);border:1px solid var(--purple)}button.danger{background:#a52d39}
+main{max-width:1050px;margin:32px auto;padding:0 20px 50px}.page{display:none}.page.active{display:block}
+.card{background:white;border:1px solid var(--border);border-radius:10px;padding:24px;margin:18px 0}.card h3{margin-top:0;color:var(--purple)}
+.notice,.warning{padding:16px;border-radius:5px;margin:18px 0}.notice{background:#f0ebf7;border-left:4px solid var(--purple)}.warning{background:#fff6dc;border-left:4px solid #b18b30}
+label{display:block;font-weight:bold;margin-top:17px}input,textarea,select{width:100%;padding:11px;margin-top:6px;border:1px solid #c9c5d0;border-radius:5px;font:inherit}textarea{min-height:100px;resize:vertical}form button{margin-top:20px}
+.small{color:#625d69;font-size:14px}.section-heading{border-bottom:2px solid var(--gold);padding-bottom:8px;margin-top:32px}.success{color:#236c3c;font-weight:bold}
+footer{text-align:center;border-top:1px solid var(--border);padding:24px;color:#625d69;font-size:13px}
+@media(max-width:600px){nav button{width:100%}.card{padding:17px}}
 </style>
 </head>
-
 <body>
-
-<header>
-    <h1>IA Research Portal</h1>
-    <p>James Madison University | Intelligence Analysis Program</p>
-</header>
-
+<header><h1>IA Research Portal</h1><p>James Madison University | Intelligence Analysis Program</p></header>
 <nav>
-    <button onclick="showPage('opportunities')">
-        Research Opportunities
-    </button>
-<button onclick="showPage('applications')">
-    Student Application
-</button>
-
-<button onclick="showPage('interests')">
-    Submit Research Interests
-</button>
-
-<button onclick="showPage('faculty')">
-    Faculty Dashboard
-</button>
+<button class="active" data-page="opportunities" onclick="showPage('opportunities')">Research Opportunities</button>
+<button data-page="applications" onclick="showPage('applications')">Student Application</button>
+<button data-page="interests" onclick="showPage('interests')">Submit Research Interests</button>
+<button data-page="faculty" onclick="showPage('faculty')">Faculty Dashboard</button>
 </nav>
-
 <main>
-
-    <!-- RESEARCH OPPORTUNITIES -->
-
-    <section id="opportunities" class="page active">
-        <h2>Available Research Opportunities</h2>
-
-        <p>
-            Explore faculty-led research opportunities
-            within the Intelligence Analysis Program.
-        </p>
-
-        <div class="notice">
-            There are currently no research opportunities
-            available. Please check back later.
-        </div>
-    </section>
-
-
-    <!-- STUDENT APPLICATION -->
-
-    <section id="applications" class="page">
-        <h2>Student Research Application</h2>
-
-        <p>
-            Apply to participate in faculty-led
-            research projects.
-        </p>
-
-        <div class="notice">
-            There are currently no research opportunities
-            accepting applications.
-        </div>
-    </section>
-
-
-<!-- STUDENT RESEARCH INTERESTS -->
-
-<section id="interests" class="page">
-
-    <h2>Submit Research Interests</h2>
-
-    <p>
-        Interested in participating in faculty research?
-        Share your interests, skills, and experience.
-        Faculty may contact you if an opportunity becomes available.
-    </p>
-
-    <div class="card">
-        <h3>Student Interest Form</h3>
-
-        <form id="interestForm">
-
-            <label for="studentName">Full Name</label>
-            <input type="text" id="studentName" required>
-
-            <label for="studentEmail">JMU Email</label>
-            <input type="email" id="studentEmail" required>
-
-            <label for="studentMajor">Major(s)</label>
-            <input type="text" id="studentMajor" required>
-
-            <label for="researchInterests">Research Interests</label>
-            <textarea id="researchInterests" required></textarea>
-
-            <label for="studentSkills">Relevant Skills and Experience</label>
-            <textarea id="studentSkills"></textarea>
-
-            <label for="studentAvailability">Availability</label>
-            <input type="text" id="studentAvailability"
-                   placeholder="Example: 5 hours per week">
-
-            <button type="submit" class="submit">
-                Submit Research Interests
-            </button>
-
-        </form>
-
-        <p id="interestMessage" role="status"></p>
-        <p>Demo only. Do not enter real personal information yet.</p>
-    </div>
-
+<section id="opportunities" class="page active">
+<h2>Available Research Opportunities</h2><p>Explore faculty-led research opportunities and apply for projects that match your interests and skills.</p>
+<div class="warning">Site setup in progress. Listings currently appear only in the browser where they were created.</div>
+<div id="projectListings"></div><div id="noProjects" class="notice">There are currently no research opportunities available. You can still submit general research interests.</div>
+<button class="secondary" onclick="showPage('interests')">Submit General Research Interests</button>
 </section>
-
-    <!-- FACULTY DASHBOARD -->
-
-    <section id="faculty" class="page">
-        <h2>Faculty Dashboard</h2>
-
-        <p>
-            Create research opportunities and manage
-            student applications.
-        </p>
-
-        <div class="card">
-            <h3>Create Research Opportunity</h3>
-
-            <form id="facultyForm">
-
-                <label for="professor">Professor Name</label>
-                <input type="text" id="professor" required>
-
-                <label for="projectTitle">Research Project Title</label>
-                <input type="text" id="projectTitle" required>
-
-                <label for="description">Project Description</label>
-                <textarea id="description" required></textarea>
-
-                <label for="qualifications">
-                    Required or Preferred Qualifications
-                </label>
-                <textarea id="qualifications"></textarea>
-
-                <label for="responsibilities">
-                    Student Responsibilities
-                </label>
-                <textarea id="responsibilities"></textarea>
-
-                <label for="positions">
-                    Number of Students Needed
-                </label>
-                <input type="number" id="positions" min="1" value="1">
-
-                <button class="submit" type="submit">
-                    Post Research Opportunity
-                </button>
-
-            </form>
-
-            <p id="formMessage" role="status"></p>
-        </div>
-
-        <div class="card">
-            <h3>Student Applications</h3>
-            <p>No student applications have been received.</p>
-        </div>
-    </section>
-
+<section id="applications" class="page">
+<h2>Student Research Application</h2><p>Apply to a specific faculty research project.</p>
+<div class="warning">Submissions are not yet connected to faculty. Please do not enter real personal information.</div>
+<div id="noApplicationProjects" class="notice">There are currently no research opportunities accepting applications.</div>
+<div class="card" id="applicationCard"><h3>Apply for Research</h3>
+<form id="applicationForm">
+<label for="applicationProject">Select Research Project</label><select id="applicationProject" required></select>
+<label for="applicantName">Full Name</label><input id="applicantName" required>
+<label for="applicantEmail">JMU Email</label><input id="applicantEmail" type="email" required>
+<label for="applicantMajor">Major(s)</label><input id="applicantMajor" required>
+<label for="applicantYear">Academic Year</label><select id="applicantYear" required><option value="">Select year</option><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option><option>Graduate Student</option></select>
+<label for="applicantExperience">Relevant Skills and Experience</label><textarea id="applicantExperience" required></textarea>
+<label for="applicantInterest">Why Are You Interested in This Project?</label><textarea id="applicantInterest" required></textarea>
+<label for="applicantAvailability">Weekly Availability</label><input id="applicantAvailability" placeholder="Example: 5 hours per week">
+<button type="submit">Submit Application</button>
+</form><p id="applicationMessage" role="status"></p></div>
+</section>
+<section id="interests" class="page">
+<h2>Submit Research Interests</h2><p>Interested in research even if no projects are currently posted? Share your interests and qualifications. In the completed portal, authorized professors and administrators will be able to review submissions.</p>
+<div class="warning">Submissions are not yet connected to faculty. Please do not enter real personal information.</div>
+<div class="card"><h3>Student Research Interest Form</h3>
+<form id="interestForm">
+<label for="studentName">Full Name</label><input id="studentName" required>
+<label for="studentEmail">JMU Email</label><input id="studentEmail" type="email" required>
+<label for="studentMajor">Major(s)</label><input id="studentMajor" required>
+<label for="studentYear">Academic Year</label><select id="studentYear" required><option value="">Select year</option><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option><option>Graduate Student</option></select>
+<label for="researchInterests">Research Interests</label><textarea id="researchInterests" required></textarea>
+<label for="studentSkills">Relevant Skills and Experience</label><textarea id="studentSkills"></textarea>
+<label for="studentAvailability">Weekly Availability</label><input id="studentAvailability" placeholder="Example: 5 hours per week">
+<button type="submit">Submit Research Interests</button>
+</form><p id="interestMessage" role="status"></p></div>
+</section>
+<section id="faculty" class="page">
+<h2>Faculty Dashboard</h2><p>Create research opportunities and review student applications and research interests.</p>
+<div class="warning"><strong>Faculty access is not yet restricted.</strong> This page is currently public. Do not enter real student data until faculty authentication and secure storage are configured.</div>
+<div class="card"><h3>Create Research Opportunity</h3>
+<form id="facultyForm">
+<label for="professor">Professor Name</label><input id="professor" required>
+<label for="projectTitle">Research Project Title</label><input id="projectTitle" required>
+<label for="description">Project Description</label><textarea id="description" required></textarea>
+<label for="qualifications">Required or Preferred Qualifications</label><textarea id="qualifications"></textarea>
+<label for="responsibilities">Student Responsibilities</label><textarea id="responsibilities"></textarea>
+<label for="positions">Number of Students Needed</label><input id="positions" type="number" min="1" value="1" required>
+<button type="submit">Post Research Opportunity</button>
+</form><p id="formMessage" role="status"></p></div>
+<h3 class="section-heading">Manage Research Opportunities</h3><div id="facultyProjects"></div>
+<h3 class="section-heading">Student Applications</h3><div id="facultyApplications"></div>
+<h3 class="section-heading">Student Research Interest Directory</h3><p class="small">This directory must be restricted to authorized faculty and administrators before real use.</p><div id="facultyInterests"></div>
+<div class="card"><h3>Local Data</h3><p>Clear projects and submissions saved in this browser while the portal is being configured.</p><button class="danger" onclick="clearDemoData()">Clear Browser Data</button></div>
+</section>
 </main>
-
+<footer>IA Research Portal | James Madison University Intelligence Analysis Program</footer>
 <script>
-    function showPage(pageId) {
-        document.querySelectorAll(".page").forEach(page => {
-            page.classList.remove("active");
-        });
-
-        document.getElementById(pageId).classList.add("active");
-    }
-    
-const projects = JSON.parse(
-    localStorage.getItem("iaResearchProjects") || "[]"
-);
-
-function displayProjects() {
-    const opportunities = document.getElementById("opportunities");
-
-    const oldListings = document.getElementById("projectListings");
-    if (oldListings) oldListings.remove();
-
-    const listings = document.createElement("div");
-    listings.id = "projectListings";
-
-    projects.forEach(project => {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        const title = document.createElement("h3");
-        title.textContent = project.title;
-
-        const professor = document.createElement("p");
-        professor.textContent = "Professor: " + project.professor;
-
-        const description = document.createElement("p");
-        description.textContent = project.description;
-
-        const qualifications = document.createElement("p");
-        qualifications.textContent =
-            "Qualifications: " + project.qualifications;
-
-        const responsibilities = document.createElement("p");
-        responsibilities.textContent =
-            "Responsibilities: " + project.responsibilities;
-
-        const positions = document.createElement("p");
-        positions.textContent =
-            "Students Needed: " + project.positions;
-
-        card.append(
-            title, professor, description,
-            qualifications, responsibilities, positions
-        );
-
-        listings.appendChild(card);
-    });
-
-    opportunities.appendChild(listings);
-
-    const notice = opportunities.querySelector(".notice");
-    if (notice) {
-        notice.style.display = projects.length ? "none" : "block";
-    }
-}
-
-document.getElementById("facultyForm").addEventListener(
-    "submit",
-    function(event) {
-        event.preventDefault();
-
-        const project = {
-            title: document.getElementById("projectTitle").value,
-            professor: document.getElementById("professor").value,
-            description: document.getElementById("description").value,
-            qualifications: document.getElementById("qualifications").value,
-            responsibilities: document.getElementById("responsibilities").value,
-            positions: document.getElementById("positions").value
-        };
-
-        projects.push(project);
-
-        localStorage.setItem(
-            "iaResearchProjects",
-            JSON.stringify(projects)
-        );
-
-        displayProjects();
-        this.reset();
-
-        document.getElementById("formMessage").textContent =
-            "Demo project saved in this browser.";
-
-        showPage("opportunities");
-    }
-);
-
-displayProjects();
-
+function loadData(key){try{const data=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(data)?data:[]}catch{return []}}
+let projects=loadData('iaResearchProjects');
+let applications=loadData('iaResearchApplications');
+let interests=loadData('iaResearchInterests');
+function saveData(){localStorage.setItem('iaResearchProjects',JSON.stringify(projects));localStorage.setItem('iaResearchApplications',JSON.stringify(applications));localStorage.setItem('iaResearchInterests',JSON.stringify(interests))}
+function showPage(pageId){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(pageId).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===pageId));window.scrollTo(0,0)}
+function el(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n}
+function detail(parent,label,value){parent.appendChild(el('p',label+': '+(value||'Not specified')))}
+function empty(parent,message){parent.appendChild(el('div',message,'notice'))}
+function displayProjects(){const list=document.getElementById('projectListings');list.replaceChildren();document.getElementById('noProjects').style.display=projects.length?'none':'block';projects.forEach(p=>{const card=el('div',undefined,'card');card.appendChild(el('h3',p.title));detail(card,'Professor',p.professor);detail(card,'Description',p.description);detail(card,'Qualifications',p.qualifications);detail(card,'Responsibilities',p.responsibilities);detail(card,'Students Needed',p.positions);const btn=el('button','View & Apply');btn.addEventListener('click',()=>{showPage('applications');document.getElementById('applicationProject').value=p.id});card.appendChild(btn);list.appendChild(card)})}
+function updateApplicationOptions(){const select=document.getElementById('applicationProject');const prior=select.value;select.replaceChildren();const first=el('option','Select a research project');first.value='';select.appendChild(first);projects.forEach(p=>{const option=el('option',p.title+' — '+p.professor);option.value=p.id;select.appendChild(option)});if(projects.some(p=>p.id===prior))select.value=prior;document.getElementById('applicationCard').style.display=projects.length?'block':'none';document.getElementById('noApplicationProjects').style.display=projects.length?'none':'block'}
+document.getElementById('facultyForm').addEventListener('submit',function(event){event.preventDefault();const p={id:crypto.randomUUID(),professor:document.getElementById('professor').value.trim(),title:document.getElementById('projectTitle').value.trim(),description:document.getElementById('description').value.trim(),qualifications:document.getElementById('qualifications').value.trim(),responsibilities:document.getElementById('responsibilities').value.trim(),positions:document.getElementById('positions').value};projects.push(p);saveData();refreshAll();this.reset();document.getElementById('formMessage').textContent='Project saved in this browser only. Not yet published to other users.';showPage('opportunities')});
+document.getElementById('applicationForm').addEventListener('submit',function(event){event.preventDefault();const project=projects.find(p=>p.id===document.getElementById('applicationProject').value);if(!project){alert('Select a valid project.');return}applications.push({id:crypto.randomUUID(),projectId:project.id,projectTitle:project.title,professor:project.professor,name:document.getElementById('applicantName').value.trim(),email:document.getElementById('applicantEmail').value.trim(),major:document.getElementById('applicantMajor').value.trim(),year:document.getElementById('applicantYear').value,experience:document.getElementById('applicantExperience').value.trim(),interest:document.getElementById('applicantInterest').value.trim(),availability:document.getElementById('applicantAvailability').value.trim()});saveData();displayFacultyApplications();this.reset();const message=document.getElementById('applicationMessage');message.textContent='Application saved in this browser only. Not yet delivered to faculty.';message.className='success'});
+document.getElementById('interestForm').addEventListener('submit',function(event){event.preventDefault();interests.push({id:crypto.randomUUID(),name:document.getElementById('studentName').value.trim(),email:document.getElementById('studentEmail').value.trim(),major:document.getElementById('studentMajor').value.trim(),year:document.getElementById('studentYear').value,interests:document.getElementById('researchInterests').value.trim(),skills:document.getElementById('studentSkills').value.trim(),availability:document.getElementById('studentAvailability').value.trim()});saveData();displayFacultyInterests();this.reset();const message=document.getElementById('interestMessage');message.textContent='Research interests saved in this browser only. Not yet delivered to faculty.';message.className='success'});
+function displayFacultyProjects(){const c=document.getElementById('facultyProjects');c.replaceChildren();if(!projects.length){empty(c,'No research projects posted.');return}projects.forEach(p=>{const card=el('div',undefined,'card');card.appendChild(el('h3',p.title));detail(card,'Professor',p.professor);detail(card,'Applications',applications.filter(a=>a.projectId===p.id).length);const btn=el('button','Remove Project','danger');btn.addEventListener('click',()=>{if(!confirm('Remove this locally saved project and its applications?'))return;projects=projects.filter(x=>x.id!==p.id);applications=applications.filter(a=>a.projectId!==p.id);saveData();refreshAll()});card.appendChild(btn);c.appendChild(card)})}
+function displayFacultyApplications(){const c=document.getElementById('facultyApplications');c.replaceChildren();if(!applications.length){empty(c,'No student applications have been received.');return}applications.forEach(a=>{const card=el('div',undefined,'card');card.appendChild(el('h3',a.name));detail(card,'Project',a.projectTitle);detail(card,'Professor',a.professor);detail(card,'Email',a.email);detail(card,'Major',a.major);detail(card,'Academic Year',a.year);detail(card,'Experience',a.experience);detail(card,'Interest',a.interest);detail(card,'Availability',a.availability);c.appendChild(card)})}
+function displayFacultyInterests(){const c=document.getElementById('facultyInterests');c.replaceChildren();if(!interests.length){empty(c,'No general research interest submissions yet.');return}interests.forEach(s=>{const card=el('div',undefined,'card');card.appendChild(el('h3',s.name));detail(card,'Email',s.email);detail(card,'Major',s.major);detail(card,'Academic Year',s.year);detail(card,'Research Interests',s.interests);detail(card,'Skills and Experience',s.skills);detail(card,'Availability',s.availability);c.appendChild(card)})}
+function clearDemoData(){if(!confirm('Delete all locally saved data from this browser?'))return;projects=[];applications=[];interests=[];saveData();refreshAll();['applicationMessage','interestMessage','formMessage'].forEach(id=>document.getElementById(id).textContent='')}
+function refreshAll(){displayProjects();updateApplicationOptions();displayFacultyProjects();displayFacultyApplications();displayFacultyInterests()}
+refreshAll();
 </script>
-
 </body>
 </html>
