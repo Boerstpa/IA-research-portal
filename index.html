@@ -280,16 +280,94 @@
 
         document.getElementById(pageId).classList.add("active");
     }
+    
+const projects = JSON.parse(
+    localStorage.getItem("iaResearchProjects") || "[]"
+);
 
-    document.getElementById("facultyForm").addEventListener(
-        "submit",
-        function(event) {
-            event.preventDefault();
+function displayProjects() {
+    const opportunities = document.getElementById("opportunities");
 
-            document.getElementById("formMessage").textContent =
-                "Demo only: postings are not saved yet.";
-        }
-    );
+    const oldListings = document.getElementById("projectListings");
+    if (oldListings) oldListings.remove();
+
+    const listings = document.createElement("div");
+    listings.id = "projectListings";
+
+    projects.forEach(project => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const title = document.createElement("h3");
+        title.textContent = project.title;
+
+        const professor = document.createElement("p");
+        professor.textContent = "Professor: " + project.professor;
+
+        const description = document.createElement("p");
+        description.textContent = project.description;
+
+        const qualifications = document.createElement("p");
+        qualifications.textContent =
+            "Qualifications: " + project.qualifications;
+
+        const responsibilities = document.createElement("p");
+        responsibilities.textContent =
+            "Responsibilities: " + project.responsibilities;
+
+        const positions = document.createElement("p");
+        positions.textContent =
+            "Students Needed: " + project.positions;
+
+        card.append(
+            title, professor, description,
+            qualifications, responsibilities, positions
+        );
+
+        listings.appendChild(card);
+    });
+
+    opportunities.appendChild(listings);
+
+    const notice = opportunities.querySelector(".notice");
+    if (notice) {
+        notice.style.display = projects.length ? "none" : "block";
+    }
+}
+
+document.getElementById("facultyForm").addEventListener(
+    "submit",
+    function(event) {
+        event.preventDefault();
+
+        const project = {
+            title: document.getElementById("projectTitle").value,
+            professor: document.getElementById("professor").value,
+            description: document.getElementById("description").value,
+            qualifications: document.getElementById("qualifications").value,
+            responsibilities: document.getElementById("responsibilities").value,
+            positions: document.getElementById("positions").value
+        };
+
+        projects.push(project);
+
+        localStorage.setItem(
+            "iaResearchProjects",
+            JSON.stringify(projects)
+        );
+
+        displayProjects();
+        this.reset();
+
+        document.getElementById("formMessage").textContent =
+            "Demo project saved in this browser.";
+
+        showPage("opportunities");
+    }
+);
+
+displayProjects();
+
 </script>
 
 </body>
